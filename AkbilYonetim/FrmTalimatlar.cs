@@ -117,12 +117,12 @@ namespace AkbilYonetim
             if (cmbAkbiller.SelectedIndex >= 0)
             {
                 txtYuklenecekTutar.Clear();
-                grpBoxYukleme.Enabled = true;                
+                grpBoxYukleme.Enabled = true;
             }
             else
             {
                 txtYuklenecekTutar.Clear();
-                grpBoxYukleme.Enabled = false;               
+                grpBoxYukleme.Enabled = false;
             }
             BekleyenTalimatSayisiniGetir();
             TalimatlariDataGrideGetir(chboxTumunuGoster.Checked);
@@ -202,15 +202,13 @@ namespace AkbilYonetim
             MessageBox.Show("Çıkış yapıldı");
             //GenelIslemler.GirisYapanKullaniciAdSoyad = string.Empty;
             //GenelIslemler.GirisYapanKullaniciId = 0;
+            FrmGiris frmGiris = new FrmGiris();
 
             foreach (Form item in Application.OpenForms)
             {
-                if (item.Name != "FrmGiris")
-                {
-                    item.Hide();
-                }
+                item.Hide();
             }
-            Application.OpenForms["FrmGiris"].Show();
+            frmGiris.Show();
         }
 
         private void timerBekleyenTalimat_Tick(object sender, EventArgs e)

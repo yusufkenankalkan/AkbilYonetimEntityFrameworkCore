@@ -31,11 +31,17 @@ namespace AkbilYonetim
             {
                 txtEmail.Text = Email;
             }
-            //Beni Hatýrlayý Properties.Settings ile yapana kadar burasý böyle kolaylýk saðlasýn.
-            txtEmail.Text = "yusuf@gmail.com";
-            txtSifre.Text = "1234";
+
+            if (Properties.Akbil.Default.BeniHatirla)
+            {
+                txtEmail.Text = Properties.Akbil.Default.BeniHatirlaKullaniciEmail;
+                txtSifre.Text = Properties.Akbil.Default.BeniHatirlaKullaniciSifre;
+                checkBoxHatirla.Checked = true;
+            }
 
         }
+
+
         private void btnKayitOl_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -61,12 +67,12 @@ namespace AkbilYonetim
                 }
 
                 //2) Girdiði email ve þifre veritabanýnda mevcut mu?
-                var kullanici = context.Kullanicilars.FirstOrDefault(x => x.Email == txtEmail.Text && 
+                var kullanici = context.Kullanicilars.FirstOrDefault(x => x.Email == txtEmail.Text &&
                 x.Parola == GenelIslemler.MD5Encryption(txtSifre.Text.Trim()));
 
-                if (kullanici == null) 
+                if (kullanici == null)
                 {
-                    MessageBox.Show("Email ya da Þifrenizi yanlýþ girdiniz"); 
+                    MessageBox.Show("Email ya da Þifrenizi yanlýþ girdiniz");
                     return;
                 }
                 else
@@ -77,6 +83,10 @@ namespace AkbilYonetim
                     GenelIslemler.GirisYapanKullaniciAdSoyad = $"{kullanici.Ad} {kullanici.Soyad}";
 
                     //Beni Hatýrla settings ile yazýlacak
+                    if (checkBoxHatirla.Checked)
+                    {
+                        BeniHatirlaAyarla();
+                    }
 
                     //temizlik
                     txtEmail.Clear(); txtSifre.Clear();
@@ -98,6 +108,26 @@ namespace AkbilYonetim
             if (e.KeyChar == Convert.ToChar(Keys.Enter)) //basýlan tuþ enter ise giriþ yapacak
             {
                 GirisYap();
+            }
+        }
+        private void BeniHatirlaAyarla()
+        {
+            Properties.Akbil.Default.BeniHatirlaKullaniciEmail = txtEmail.Text.Trim();
+            Properties.Akbil.Default.BeniHatirlaKullaniciSifre = txtSifre.Text.Trim();
+            Properties.Akbil.Default.Save();
+        }
+
+        private void checkBoxHatirla_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxHatirla.Checked)
+            {
+                Properties.Akbil.Default.BeniHatirla = true;
+                Properties.Akbil.Default.Save();
+            }
+            else
+            {
+                Properties.Akbil.Default.BeniHatirla = false;
+                Properties.Akbil.Default.Save();
             }
         }
     }

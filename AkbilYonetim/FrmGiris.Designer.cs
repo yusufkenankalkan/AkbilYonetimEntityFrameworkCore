@@ -92,6 +92,7 @@
             this.checkBoxHatirla.TabIndex = 4;
             this.checkBoxHatirla.Text = "Beni Hatırla";
             this.checkBoxHatirla.UseVisualStyleBackColor = false;
+            this.checkBoxHatirla.CheckedChanged += new System.EventHandler(this.checkBoxHatirla_CheckedChanged);
             // 
             // btnKayitOl
             // 

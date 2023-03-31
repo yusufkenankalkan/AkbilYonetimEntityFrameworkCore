@@ -109,14 +109,12 @@ namespace AkbilYonetim
             GenelIslemler.GirisYapanKullaniciAdSoyad = string.Empty;
             GenelIslemler.GirisYapanKullaniciId = 0;
 
+            FrmGiris frmGiris = new FrmGiris();
             foreach (Form item in Application.OpenForms)
             {
-                if (item.Name != "FrmGiris")
-                {
-                    item.Hide();
-                }
+                item.Hide();
             }
-            Application.OpenForms["FrmGiris"].Show();
+            frmGiris.Show();
         }
     }
 }

@@ -84,6 +84,7 @@
             this.Controls.Add(this.btnAkbil);
             this.Name = "FrmAnaSayfa";
             this.Text = "Ana Sayfa";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmAnaSayfa_FormClosed);
             this.ResumeLayout(false);
 
         }
